@@ -1,6 +1,6 @@
 cask "agent-notch" do
-  version "0.1.0"
-  sha256 "ee6605cb95a0e8bff32ba62806ab8d5c4a31691b6fd43a90fc1cb8714822f4c9"
+  version "0.2.0"
+  sha256 "ec98b748010385f5e679bb69b012148a990b549528c464473c95b3e8e0a146c1"
 
   url "https://github.com/Forichok/Agent-Notch/releases/download/v#{version}/AgentNotch-#{version}.zip"
   name "Agent Notch"
@@ -27,10 +27,21 @@ cask "agent-notch" do
 
   uninstall quit: "com.forichok.agents-notch"
 
-  zap trash: "~/Library/Preferences/com.forichok.agents-notch.plist"
+  # zap runs after the app is removed: the hooks come out through the helper copy, before it is trashed.
+  zap script: {
+        executable: "/bin/sh",
+        args:       [
+          "-c",
+          'h="$HOME/Library/Application Support/AgentsNotch/notch-hook"; [ -x "$h" ] && "$h" --uninstall-hooks; true',
+        ],
+      },
+      trash:  [
+        "~/Library/Application Support/AgentsNotch",
+        "~/Library/Preferences/com.forichok.agents-notch.plist",
+      ]
 
   caveats <<~EOS
-    If you installed the hooks, remove them before uninstalling:
-      "#{appdir}/Agent Notch.app/Contents/MacOS/AgentsNotch" --uninstall-hooks
+    A plain uninstall keeps the Claude Code and Codex hooks. To remove them too:
+      brew uninstall --zap agent-notch
   EOS
 end
