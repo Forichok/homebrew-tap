@@ -1,6 +1,6 @@
 cask "agent-notch" do
-  version "0.4.0"
-  sha256 "c0cd891813603187361fb112edd81f8828e3e9bd873f4c71b59cbdefe3cafc85"
+  version "0.4.1"
+  sha256 "8d0d6d865a40c25aa3d42228d44d1cf02470f798aab9d7c32e8bc176bd50db38"
 
   url "https://github.com/Forichok/Agent-Notch/releases/download/v#{version}/AgentNotch-#{version}.zip"
   name "Agent Notch"
@@ -11,6 +11,8 @@ cask "agent-notch" do
     url :url
     strategy :github_latest
   end
+
+  auto_updates true
 
   depends_on arch: :arm64
   depends_on macos: :sonoma
