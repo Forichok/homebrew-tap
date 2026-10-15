@@ -1,6 +1,6 @@
 cask "agent-notch" do
   version "0.4.1"
-  sha256 "8d0d6d865a40c25aa3d42228d44d1cf02470f798aab9d7c32e8bc176bd50db38"
+  sha256 "73b84de565daa5e912aa905a9f3a41ccd3c95f2c400f5708eecac7744d0c6e86"
 
   url "https://github.com/Forichok/Agent-Notch/releases/download/v#{version}/AgentNotch-#{version}.zip"
   name "Agent Notch"
